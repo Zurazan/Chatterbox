@@ -10,9 +10,9 @@ param(
     [Parameter(Mandatory = $true)]
     [string] $OutputPath,
 
-    [string] $RepositoryBranch = 'repo',
+    [string] $SourceBranch = 'main',
 
-    [string] $IconFileName = 'Chatterbox.png',
+    [string] $IconPath = 'Chatterbox/images/Chatterbox.png',
 
     [long] $LastUpdate = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
 )
@@ -24,7 +24,8 @@ $owner, $repositoryName = $Repository.Split('/', 2)
 $repositoryUrl = "https://github.com/$Repository"
 $releaseUrl = "$repositoryUrl/releases/latest/download/latest.zip"
 $testingUrl = "$repositoryUrl/releases/download/testing/latest.zip"
-$iconUrl = "https://raw.githubusercontent.com/$Repository/$RepositoryBranch/$IconFileName"
+$normalizedIconPath = $IconPath.Replace('\', '/')
+$iconUrl = "https://raw.githubusercontent.com/$Repository/$SourceBranch/$normalizedIconPath"
 
 $tags = @($manifest.Tags)
 if ($tags.Count -eq 1 -and $tags[0] -is [string]) {
@@ -59,7 +60,7 @@ if (-not [string]::IsNullOrWhiteSpace($outputDirectory)) {
     New-Item -ItemType Directory -Path $outputDirectory -Force | Out-Null
 }
 
-ConvertTo-Json -InputObject @($entry) -Depth 8 | Set-Content -LiteralPath $OutputPath -Encoding utf8NoBOM
+ConvertTo-Json -InputObject @($entry) -Depth 8 -Compress | Set-Content -LiteralPath $OutputPath -Encoding utf8NoBOM
 
 $generated = Get-Content -LiteralPath $OutputPath -Raw | ConvertFrom-Json
 if ($generated.Count -ne 1 -or $generated[0].InternalName -ne $manifest.InternalName) {

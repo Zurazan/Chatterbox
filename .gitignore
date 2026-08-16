@@ -3,6 +3,9 @@ bin/
 obj/
 artifacts/
 
+# Generated exclusively on the repo branch
+/repo.json
+
 # IDE and user state
 .idea/
 .vs/

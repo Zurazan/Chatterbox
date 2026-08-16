@@ -44,8 +44,15 @@ jobs:
       - name: Validate repository manifest
         shell: pwsh
         run: |
-          Get-Content -LiteralPath repo.json -Raw | ConvertFrom-Json | Out-Null
-          if (-not (Test-Path -LiteralPath images\Chatterbox.png)) { throw 'Missing repository icon.' }
+          $output = Join-Path $env:RUNNER_TEMP 'repo.json'
+          .\scripts\New-PluginRepository.ps1 `
+              -ManifestPath 'bin\Release\Chatterbox.json' `
+              -Repository $env:GITHUB_REPOSITORY `
+              -OutputPath $output
+          $repository = Get-Content -LiteralPath $output -Raw | ConvertFrom-Json
+          if ($repository.Count -ne 1) { throw 'Repository feed must contain one plugin.' }
+          if (-not (Test-Path -LiteralPath 'Chatterbox\images\Chatterbox.png')) { throw 'Missing repository icon.' }
+          if ($repository[0].IconUrl -notlike '*/main/Chatterbox/images/Chatterbox.png') { throw 'Unexpected repository icon URL.' }
 
       - name: Upload package
         uses: actions/upload-artifact@v7

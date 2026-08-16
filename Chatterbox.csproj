@@ -12,8 +12,8 @@
     <RepoUrl Condition="'$(GITHUB_REPOSITORY)' == ''">https://github.com/Zurazan/Chatterbox</RepoUrl>
     <RepoUrl Condition="'$(GITHUB_REPOSITORY)' != ''">https://github.com/$(GITHUB_REPOSITORY)</RepoUrl>
     <RepositoryUrl>$(RepoUrl)</RepositoryUrl>
-    <IconUrl Condition="'$(GITHUB_REPOSITORY)' == ''">https://raw.githubusercontent.com/Zurazan/Chatterbox/repo/Chatterbox.png</IconUrl>
-    <IconUrl Condition="'$(GITHUB_REPOSITORY)' != ''">https://raw.githubusercontent.com/$(GITHUB_REPOSITORY)/repo/Chatterbox.png</IconUrl>
+    <IconUrl Condition="'$(GITHUB_REPOSITORY)' == ''">https://raw.githubusercontent.com/Zurazan/Chatterbox/main/Chatterbox/images/Chatterbox.png</IconUrl>
+    <IconUrl Condition="'$(GITHUB_REPOSITORY)' != ''">https://raw.githubusercontent.com/$(GITHUB_REPOSITORY)/main/Chatterbox/images/Chatterbox.png</IconUrl>
     <Company>Chatterbox Contributors</Company>
     <Product>Chatterbox</Product>
     <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
