@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project Sdk="Dalamud.NET.Sdk/15.0.0">
+  <PropertyGroup>
+    <AssemblyName>Chatterbox</AssemblyName>
+    <RootNamespace>Chatterbox</RootNamespace>
+    <Version>1.2.1.0</Version>
+    <Name>Chatterbox</Name>
+    <Author>Zura</Author>
+    <Description>A trigger studio for configurable chat and emote reactions.</Description>
+    <Punchline>Familiar triggers, rebuilt in the open.</Punchline>
+    <Tags>chat;triggers;emotes;utility</Tags>
+    <RepoUrl Condition="'$(GITHUB_REPOSITORY)' == ''">https://github.com/Zurazan/Chatterbox</RepoUrl>
+    <RepoUrl Condition="'$(GITHUB_REPOSITORY)' != ''">https://github.com/$(GITHUB_REPOSITORY)</RepoUrl>
+    <RepositoryUrl>$(RepoUrl)</RepositoryUrl>
+    <IconUrl Condition="'$(GITHUB_REPOSITORY)' == ''">https://raw.githubusercontent.com/Zurazan/Chatterbox/repo/Chatterbox.png</IconUrl>
+    <IconUrl Condition="'$(GITHUB_REPOSITORY)' != ''">https://raw.githubusercontent.com/$(GITHUB_REPOSITORY)/repo/Chatterbox.png</IconUrl>
+    <Company>Chatterbox Contributors</Company>
+    <Product>Chatterbox</Product>
+    <PackageLicenseExpression>AGPL-3.0-only</PackageLicenseExpression>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <Deterministic>true</Deterministic>
+    <ContinuousIntegrationBuild Condition="'$(CI)' == 'true'">true</ContinuousIntegrationBuild>
+    <RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+    <!-- Preserve explicit contracts without inferring missing ones from reconstructed code. -->
+    <Nullable>annotations</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <LangVersion>14.0</LangVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>false</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Hypostasis.Debug\**\*.cs" />
+    <Compile Remove="ImGuiNET\**\*.cs" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: '1'
+  DOTNET_NOLOGO: '1'
+  NUGET_PACKAGES: ${{ github.workspace }}\.nuget\packages
+
+jobs:
+  build:
+    runs-on: windows-2022
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v6
+        with:
+          dotnet-version: 10.0.x
+          cache: true
+          cache-dependency-path: packages.lock.json
+
+      - name: Download Dalamud
+        shell: pwsh
+        run: |
+          Invoke-WebRequest -Uri https://goatcorp.github.io/dalamud-distrib/latest.zip -OutFile "$env:RUNNER_TEMP\dalamud.zip"
+          Expand-Archive -LiteralPath "$env:RUNNER_TEMP\dalamud.zip" -DestinationPath "$env:APPDATA\XIVLauncher\addon\Hooks\dev" -Force
+
+      - name: Restore locked dependencies
+        run: dotnet restore Chatterbox.csproj --locked-mode
+
+      - name: Build release package
+        run: dotnet build Chatterbox.csproj --configuration Release --no-restore -p:ContinuousIntegrationBuild=true
+
+      - name: Validate repository manifest
+        shell: pwsh
+        run: |
+          Get-Content -LiteralPath repo.json -Raw | ConvertFrom-Json | Out-Null
+          if (-not (Test-Path -LiteralPath images\Chatterbox.png)) { throw 'Missing repository icon.' }
+
+      - name: Upload package
+        uses: actions/upload-artifact@v7
+        with:
+          name: Chatterbox
+          path: bin\Release\Chatterbox\latest.zip
+          if-no-files-found: error
+          retention-days: 7

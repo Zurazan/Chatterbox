@@ -1,0 +1,31 @@
+# Build output
+bin/
+obj/
+artifacts/
+
+# IDE and user state
+.idea/
+.vs/
+.vscode/
+*.DotSettings.user
+*.suo
+*.user
+*.userosscache
+
+# Test and coverage output
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# Local packages and logs
+.nuget/
+*.log
+
+# Unreferenced files retained locally until the reconstructed source has history
+Hypostasis.Debug/
+ImGuiNET/
+
+# Operating system files
+.DS_Store
+Thumbs.db
