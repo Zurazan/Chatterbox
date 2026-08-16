@@ -2,6 +2,18 @@
 
 A silly Dalamud plugin for creating configurable triggers and automated reactions to chat, emotes, and other in-game events.
 
+## Installation
+
+1. Open Dalamud Settings with `/xlsettings`.
+2. Select the **Experimental** tab.
+3. Add the following URL under **Custom Plugin Repositories**:
+
+```text
+https://raw.githubusercontent.com/Zurazan/Chatterbox/repo/repo.json
+```
+
+4. Save your changes, open the Dalamud Plugin Installer, and install **Chatterbox**.
+
 ## Features
 
 - Create custom text and emote triggers
