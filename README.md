@@ -19,6 +19,8 @@ Open Chatterbox with:
 
 Create a trigger, configure what should activate it and what Chatterbox should do in response.
 
+But i mainly use it for silly Truth or Dare or Syncshell sharing automations for venues :3
+
 ## License
 
 Chatterbox is licensed under the [GNU Affero General Public License v3.0](LICENSE).
